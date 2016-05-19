@@ -77,7 +77,7 @@ namespace YH_Admin.Model
             // Read Course Content Text file
             CourseContentTexts = SchoolDatabase.ReadCourseContentTextFile();
             // Read Course Content file
-                        CourseContents = SchoolDatabase.ReadCourseContentFile();
+            CourseContents = SchoolDatabase.ReadCourseContentFile();
         }
 
 
@@ -244,7 +244,7 @@ namespace YH_Admin.Model
                 if (c.ClassCourseId == classCourseId)
                     GradesFromCourse.Add(c);
             }
-                return GradesFromCourse;  
+            return GradesFromCourse;
         }
 
         public string GetStudentName(int studentId)
@@ -259,7 +259,7 @@ namespace YH_Admin.Model
         public List<CourseContent> GetCourseContent(int classCourseId)
         {
             return CourseContents.Where(cc => cc.ClassCourseId == classCourseId).ToList();
-        } 
+        }
 
         /// <summary>
         /// Return the string from CourseContentTexts with a certain textId.

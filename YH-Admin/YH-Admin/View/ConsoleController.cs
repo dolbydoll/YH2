@@ -34,6 +34,8 @@ namespace YH_Admin.View
 
         List<CourseContent> CurrentContents { get; set; }
 
+        CourseContent CurrentContent { get; set; }
+
         List<Staffing> CurrentStaffs { get; set; }
 
         /// <summary>
@@ -131,7 +133,7 @@ namespace YH_Admin.View
                 case "5":
                     PreviousMenus.Push(ShowMainMenu);
                     CurrentClassCourses = Model.ClassCourseTable;
-                    ShowCyllabusMenu();
+                    ShowSyllabusMenu();
                     break;
                 case "6":
                     PreviousMenus.Push(ShowMainMenu);
@@ -209,7 +211,7 @@ namespace YH_Admin.View
             }
         }
 
-        private void ShowCyllabusMenu()
+        private void ShowSyllabusMenu()
         {
             View.Titles.Push($"Välj en kurs för att se kursmål");
 
@@ -225,11 +227,11 @@ namespace YH_Admin.View
                 table[i + 1, 1] = Model.SchoolClasses.Find(c => c.SchoolClassId == CurrentClassCourses[i].ClassId).Name;
                 table[i + 1, 2] = Model.Staffs.Find(c => c.StaffingId == CurrentClassCourses[i].StaffingId)?.Name ?? "";
             }
-            View.ChoiceHandler = HandleCyllabusMenuChoice;
+            View.ChoiceHandler = HandleSyllabusMenuChoice;
             View.ShowTableAndWaitForChoice(table);
         }
 
-        private void HandleCyllabusMenuChoice(string choice)
+        private void HandleSyllabusMenuChoice(string choice)
         {
             if (choice.Equals("x"))
             {
@@ -246,7 +248,7 @@ namespace YH_Admin.View
             {
                 if (index > 0 && index <= CurrentClassCourses.Count)
                 {
-                    PreviousMenus.Push(ShowCyllabusMenu);
+                    PreviousMenus.Push(ShowSyllabusMenu);
                     CurrentClassCourse = CurrentClassCourses[index - 1];
                     var courseName = Model.Courses.SingleOrDefault(c => c.CourseId == CurrentClassCourse.CourseId).Name;
                     var className = Model.SchoolClasses.SingleOrDefault(sc => sc.SchoolClassId == CurrentClassCourse.ClassId).Name;
@@ -256,7 +258,7 @@ namespace YH_Admin.View
                     return;
                 }
             }
-            ShowCyllabusMenu();
+            ShowSyllabusMenu();
         }
         private void ShowCurrentCourseContents()
         {
@@ -285,9 +287,59 @@ namespace YH_Admin.View
                 ShowMainMenu();
                 return;
             }
+            int index;
+            if (int.TryParse(choice, out index))
+            {
+                if (index > 0 && index <= CurrentContents.Count)
+                {
+                    PreviousMenus.Push(ShowCurrentCourseContents);
+                    CurrentContent = CurrentContents[index - 1];
+                    var courseName = Model.Courses.SingleOrDefault(c => c.CourseId == CurrentClassCourse.CourseId).Name;
+                    var className = Model.SchoolClasses.SingleOrDefault(sc => sc.SchoolClassId == CurrentClassCourse.ClassId).Name;
+                    View.Titles.Push($"Kursmål till {courseName} för {className}");
+                    ShowCurrentContent();
+                    return;
+                }
+            }
             ShowCurrentCourseContents();
         }
 
+        private void ShowCurrentContent()
+        {
+            var table = new string[6, 2];
+            table[0, 0] = "Kategori";
+            table[0, 1] = "Innehåll";
+
+            table[1, 0] = "Kurs:";
+            table[2, 0] = "Poäng:";
+            table[3, 0] = "Delmål:";
+            table[4, 0] = "G-kriterier:";
+            table[5, 0] = "VG-kriterier:";
+
+            table[1, 1] = Model.Courses.SingleOrDefault(c => c.CourseId == CurrentClassCourse.CourseId).Name;
+            table[2, 1] = CurrentContent.Point.ToString();
+            table[3, 1] = Model.GetText(CurrentContent.ObjectivesId);
+            table[4, 1] = Model.GetText(CurrentContent.GCriteriaId);
+            table[5, 1] = Model.GetText(CurrentContent.VGCriteriaId);
+
+            View.ChoiceHandler = HandleShowCurrentContent;
+            View.ShowTableAndWaitForChoice(table);
+        }
+
+        private void HandleShowCurrentContent(string choice)
+        {
+            if (choice.Equals("x"))
+            {
+                GoBack();
+                return;
+            }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+            }
+            ShowCurrentContent();
+        }
 
         private void ShowStudentGrade()
         {
