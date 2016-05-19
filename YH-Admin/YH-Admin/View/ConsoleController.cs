@@ -262,7 +262,7 @@ namespace YH_Admin.View
         }
         private void ShowCurrentCourseContents()
         {
-            var table = new string[CurrentContents.Count + 1, 2];
+            var table = new string[CurrentContents.Count + 2, 2];
             table[0, 0] = "Delmål";
             table[0, 1] = "Poäng";
             for (int i = 0; i < CurrentContents.Count; i++)
@@ -270,6 +270,7 @@ namespace YH_Admin.View
                 table[i + 1, 0] = Model.GetText(CurrentContents[i].ObjectivesId);
                 table[i + 1, 1] = CurrentContents[i].Point.ToString();
             }
+
 
             View.ChoiceHandler = HandleShowCourseContent;
             View.ShowTableAndWaitForChoice(table);
@@ -300,6 +301,19 @@ namespace YH_Admin.View
                     ShowCurrentContent();
                     return;
                 }
+
+                else if (index == CurrentContents.Count + 1)
+                {
+                    PreviousMenus.Push(ShowCurrentCourseContents);
+                    View.Titles.Push($"Lägg till en ny kursmål");
+                    var currentMaxTextId = Model.CourseContentTexts.Max(c => c.Key);
+                    CurrentContent = new CourseContent(currentMaxTextId + 1, currentMaxTextId + 2, currentMaxTextId + 3, 0, CurrentClassCourse.ClassCourseId);
+                    Model.CourseContentTexts.Add(currentMaxTextId + 1, "");
+                    Model.CourseContentTexts.Add(currentMaxTextId + 2, "");
+                    Model.CourseContentTexts.Add(currentMaxTextId + 3, "");
+                    ShowCurrentContent();
+                    return;
+                }
             }
             ShowCurrentCourseContents();
         }
@@ -321,24 +335,47 @@ namespace YH_Admin.View
             table[3, 1] = Model.GetText(CurrentContent.ObjectivesId);
             table[4, 1] = Model.GetText(CurrentContent.GCriteriaId);
             table[5, 1] = Model.GetText(CurrentContent.VGCriteriaId);
-
+            View.Message = "Tryck [d] för att ta bort detta mål från kursen\nAnnars [1-5] för att ändra.";
             View.ChoiceHandler = HandleShowCurrentContent;
             View.ShowTableAndWaitForChoice(table);
         }
 
         private void HandleShowCurrentContent(string choice)
         {
-            if (choice.Equals("x"))
+
+            switch (choice)
             {
-                GoBack();
-                return;
+                case "x":
+                    GoBack();
+                    return;
+                case "h":
+                    ShowMainMenu();
+                    return;
+                case "1":
+                    View.Titles.Push($"Ändrar vilken kurs detta mål ska tillhöra");
+                    break;
+                case "2":
+                    View.Titles.Push($"Ändrar antal poäng för detta mål");
+
+                    break;
+                case "3":
+                    View.Titles.Push($"Ändrar delmåls beskrivning");
+
+                    break;
+                case "4":
+                    View.Titles.Push($"Ändrar delmålets G-kriterier");
+                    break;
+                case "5":
+                    View.Titles.Push($"Ändrar delmålets VG-kriterier");
+                    break;
+                case "6":
+                    View.Titles.Push($"Kursmål borttaget");
+
+                    break;
+                default:
+                    ShowCurrentContent();
+                    break;
             }
-            if (choice.Equals("h"))
-            {
-                ShowMainMenu();
-                return;
-            }
-            ShowCurrentContent();
         }
 
         private void ShowStudentGrade()
