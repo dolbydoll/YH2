@@ -1,0 +1,4 @@
+﻿0 Allan Allansson 0
+1 Berit Bertilsson 1
+2 Calle Carlsson 2
+3 David Danielsson 2

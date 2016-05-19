@@ -1,0 +1,3 @@
+﻿0 Systemutveckling Agila Applikationsprogrammering 0
+1 Webutveckling Agila Webprogrammering 1
+2 Systemutveckling Agila Metoder Distans 2

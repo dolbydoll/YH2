@@ -1,0 +1,11 @@
+C:\Users\johnsonh\Source\Workspaces\TeamSquid\YH-Admin\YH-Admin\bin\Debug\YH-Admin.exe.config
+C:\Users\johnsonh\Source\Workspaces\TeamSquid\YH-Admin\YH-Admin\bin\Debug\YH-Admin.exe
+C:\Users\johnsonh\Source\Workspaces\TeamSquid\YH-Admin\YH-Admin\bin\Debug\YH-Admin.pdb
+C:\Users\johnsonh\Source\Workspaces\TeamSquid\YH-Admin\YH-Admin\obj\Debug\YH-Admin.csprojResolveAssemblyReference.cache
+C:\Users\johnsonh\Source\Workspaces\TeamSquid\YH-Admin\YH-Admin\obj\Debug\YH-Admin.exe
+C:\Users\johnsonh\Source\Workspaces\TeamSquid\YH-Admin\YH-Admin\obj\Debug\YH-Admin.pdb
+C:\Users\johnsonh\Source\Workspaces\TeamSquid\YH-Admin\YH-Admin\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\johnsonh\Source\Workspaces\TeamSquid\YH-Admin\YH-Admin\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Users\johnsonh\Source\Workspaces\YH2\YH-Admin\YH-Admin\bin\Debug\YH-Admin.exe.config
+C:\Users\johnsonh\Source\Workspaces\YH2\YH-Admin\YH-Admin\obj\Debug\YH-Admin.exe
+C:\Users\johnsonh\Source\Workspaces\YH2\YH-Admin\YH-Admin\obj\Debug\YH-Admin.pdb

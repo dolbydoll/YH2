@@ -1,0 +1,9 @@
+﻿0 Datalogi
+1 Grundläggande Programmering
+2 Objektorienterad Programmering
+3 Databasmodellering
+4 Affärsekonomi
+5 Matematik för Programmerare
+6 LIA1
+7 Agila Metoder i Teori och Praktik
+8 Agila Metoder - Projektstyrning

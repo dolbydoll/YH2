@@ -1,0 +1,33 @@
+﻿0 Kunna redogöra för affärsekonomiska begrepp samt affärsplaneringens grunder
+1 Kunna beskriva och på ett grundläggande vis analysera ett företags verksamhet, affärside, företagsform, organisation, ledarskap, styrning, processer, kvalitetssystem, och intressenter samt samspelet mellan olika funktioner i organisationen
+2 Kunna redogöra för och analysera grundläggande ekonomiska begrepp och nyckeltal
+3 Kunna utföra kalkyler och lönsamhetsberäkningar
+4 Kunna beskriva och analysera resultat och balansräkning
+5 Ge en översikt över hur krav och kravanvändningar hanteras i ett agilt projekt
+6 Visa på fördjupad kunskap om rolldefinitioner
+7 Kunna få sprintarna att fungera i praktiken
+8 Kunna skala upp projekt
+9 Ha erfarenhetsutvärdering samt utvärdering och förbättring
+10 Kunna säkerställa kvalité och mörkertal
+11 Den studerande kan utförligt redogöra för affärsekonomiska begrepp samt affärsplaneringens grunder
+12 Den studerande kan utförligt kunna beskriva ett företags verksamhet: affärside, företagsform, organisation, ledarskap, styrning, processer, kvalitetssystem, och intressenter samt samspelet mellan olika funktioner i organisationen. 
+13 Den studerande kan utförligt kunna redogöra för ekonomiska begrepp och nyckeltal samt utföra kalkyler och lönsamhetsberäkningar
+14 Den studerande kan utförligt kunna utföra kalkyler och lönsamhetsberäkningar
+15 Den studerande kan utförligt kunna beskriva och analysera resultat och balansräkning
+16 Den studerande kan utförligt och nyanserat redogöra för affärsekonomiska begrepp samt affärsplaneringens grunder
+17 Den studerande kan utförligt och nyanserat kunna beskriva ett företags verksamhet: affärside, företagsform, organisation, ledarskap, styrning, processer, kvalitetssystem, och intressenter samt samspelet mellan olika funktioner i organisationen. 
+18 Den studerande kan utförligt och nyanserat kunna redogöra för ekonomiska begrepp och nyckeltal.
+19 Den studerande kan utförligt och nyanserat kunna utföra kalkyler och lönsamhetsberäkningar
+20 Den studerande kan detaljerat kunna beskriva och analysera resultat och balansräkning
+21 Den studerande redogör utförligt om hur krav och kravanvändningar hanteras i ett agilt projekt
+22 Den studerande visa utförligt på fördjupad kunskap om rolldefinitioner
+23 Den studerande kan med viss säkerhet kunna få sprintarna att fungera i praktiken
+24 Den studerande kan med viss säkerhet kunna skala upp projekt
+25 Den studerande kan med viss säkerhet utföra erfarenhetsutvärdering samt utvärdering och förbättring
+26 Den studerande kan med viss säkerhet säkerställa kvalité och mörkertal
+27 Den studerande redogör utförligt och nyanserat om hur krav och kravanvändningar hanteras i ett agilt projekt
+28 Den studerande visa utförligt och nyanserat på fördjupad kunskap om rolldefinitioner
+29 Den studerande kan med stor säkerhet kunna få sprintarna att fungera i praktiken
+30 Den studerande kan med stor säkerhet kunna skala upp projekt
+31 Den studerande kan med stor säkerhet utföra erfarenhetsutvärdering samt utvärdering och förbättring
+32 Den studerande kan med stor säkerhet säkerställa kvalité och mörkertal
