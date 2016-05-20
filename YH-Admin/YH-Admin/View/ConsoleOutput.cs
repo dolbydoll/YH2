@@ -25,6 +25,13 @@ namespace YH_Admin.View
         {
             Console.Clear();
             ShowTitle();
+            ShowTable(content, choosable);
+            ShowFooter(isMainMenu);
+            ReadAndHandleChoice(ConsoleColor.Green, cursorStr);
+        }
+
+        private void ShowTable(string[,] content, bool choosable)
+        {
             var lengths = ColumnLengths(content);
             string seperator = new String('-', lengths.Sum() + 7);
             var numRows = content.GetLength(0);
@@ -87,7 +94,7 @@ namespace YH_Admin.View
                             int tempLength = 0;
                             foreach (var word in words)
                             {
-                                if (tempLength+word.Length > 50)
+                                if (tempLength + word.Length > 50)
                                 {
                                     tempLength = 0;
                                     Console.SetCursorPosition(left, localTop++);
@@ -104,19 +111,22 @@ namespace YH_Admin.View
             }
             Console.ResetColor();
             Console.WriteLine(seperator);
+        }
+
+        private void ShowFooter(bool isMainMenu)
+        {
+
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("[x]".PadRight(7));
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            if (isMainMenu)
-                Console.WriteLine("Avsluta");
-            else
-                Console.WriteLine("Tillbaka");
+
             if (isMainMenu)
             {
-
+                Console.WriteLine("Avsluta");
             }
             else
             {
+                Console.WriteLine("Tillbaka");
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write("[h]".PadRight(7));
                 Console.ForegroundColor = ConsoleColor.DarkRed; ;
@@ -125,7 +135,11 @@ namespace YH_Admin.View
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine();
             Console.WriteLine(Message);
-            Console.ForegroundColor = ConsoleColor.Green;
+        }
+
+        private void ReadAndHandleChoice(ConsoleColor color, string cursorStr)
+        {
+            Console.ForegroundColor = color;
             Console.Write($"{cursorStr}> ");
             var choice = Console.ReadLine();
             Console.ResetColor();
