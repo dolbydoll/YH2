@@ -256,7 +256,7 @@ namespace YH_Admin.Model
             return "No matching studentId:" + studentId;
         }
 
-        public List<CourseContent> GetCourseContent(int classCourseId)
+        public List<CourseContent> GetCourseContents(int classCourseId)
         {
             return CourseContents.Where(cc => cc.ClassCourseId == classCourseId).ToList();
         }
@@ -278,6 +278,16 @@ namespace YH_Admin.Model
             {
                 return null;
             }
+        }
+
+        public string GetCourseName(int courseId)
+        {
+            return Courses.Find(c => c.CourseId == courseId)?.Name;
+        }
+
+        public string GetSchoolClassName(int schoolClassId)
+        {
+            return SchoolClasses.Find(sc => sc.SchoolClassId == schoolClassId)?.Name;
         }
     }
 }

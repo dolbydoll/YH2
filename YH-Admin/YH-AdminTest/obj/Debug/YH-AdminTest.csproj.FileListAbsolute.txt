@@ -5,3 +5,10 @@ C:\Users\johnsonh\Source\Workspaces\TeamSquid\YH-Admin\YH-AdminTest\bin\Debug\YH
 C:\Users\johnsonh\Source\Workspaces\TeamSquid\YH-Admin\YH-AdminTest\obj\Debug\YH-AdminTest.csprojResolveAssemblyReference.cache
 C:\Users\johnsonh\Source\Workspaces\TeamSquid\YH-Admin\YH-AdminTest\obj\Debug\YH-AdminTest.dll
 C:\Users\johnsonh\Source\Workspaces\TeamSquid\YH-Admin\YH-AdminTest\obj\Debug\YH-AdminTest.pdb
+C:\Users\johnsonh\Source\Workspaces\YH2\YH-Admin\YH-AdminTest\obj\Debug\YH-AdminTest.csprojResolveAssemblyReference.cache
+C:\Users\johnsonh\Source\Workspaces\YH2\YH-Admin\YH-AdminTest\obj\Debug\YH-AdminTest.dll
+C:\Users\johnsonh\Source\Workspaces\YH2\YH-Admin\YH-AdminTest\obj\Debug\YH-AdminTest.pdb
+C:\Users\johnsonh\Source\Workspaces\YH2\YH-Admin\YH-AdminTest\bin\Debug\YH-AdminTest.dll
+C:\Users\johnsonh\Source\Workspaces\YH2\YH-Admin\YH-AdminTest\bin\Debug\YH-AdminTest.pdb
+C:\Users\johnsonh\Source\Workspaces\YH2\YH-Admin\YH-AdminTest\bin\Debug\YH-Admin.exe
+C:\Users\johnsonh\Source\Workspaces\YH2\YH-Admin\YH-AdminTest\bin\Debug\YH-Admin.pdb

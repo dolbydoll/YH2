@@ -250,10 +250,7 @@ namespace YH_Admin.View
                 {
                     PreviousMenus.Push(ShowSyllabusMenu);
                     CurrentClassCourse = CurrentClassCourses[index - 1];
-                    var courseName = Model.Courses.SingleOrDefault(c => c.CourseId == CurrentClassCourse.CourseId).Name;
-                    var className = Model.SchoolClasses.SingleOrDefault(sc => sc.SchoolClassId == CurrentClassCourse.ClassId).Name;
-                    CurrentContents = Model.GetCourseContent(CurrentClassCourse.ClassCourseId);
-                    View.Titles.Push($"Kursmål till {courseName} för {className}");
+                    CurrentContents = Model.GetCourseContents(CurrentClassCourse.ClassCourseId);
                     ShowCurrentCourseContents();
                     return;
                 }
@@ -262,6 +259,10 @@ namespace YH_Admin.View
         }
         private void ShowCurrentCourseContents()
         {
+            var courseName = Model.GetCourseName(CurrentClassCourse.CourseId);
+            var className = Model.GetSchoolClassName(CurrentClassCourse.ClassId);
+            View.Titles.Push($"Kursmål till {courseName} för {className}");
+
             var table = new string[CurrentContents.Count + 2, 2];
             table[0, 0] = "Delmål";
             table[0, 1] = "Poäng";
@@ -271,7 +272,7 @@ namespace YH_Admin.View
                 table[i + 1, 1] = CurrentContents[i].Point.ToString();
             }
 
-
+            View.Message = $"Tryck [{CurrentContents.Count + 1}] för att lägga till nytt mål";
             View.ChoiceHandler = HandleShowCourseContent;
             View.ShowTableAndWaitForChoice(table);
         }
@@ -291,13 +292,11 @@ namespace YH_Admin.View
             int index;
             if (int.TryParse(choice, out index))
             {
+               
                 if (index > 0 && index <= CurrentContents.Count)
                 {
                     PreviousMenus.Push(ShowCurrentCourseContents);
                     CurrentContent = CurrentContents[index - 1];
-                    var courseName = Model.Courses.SingleOrDefault(c => c.CourseId == CurrentClassCourse.CourseId).Name;
-                    var className = Model.SchoolClasses.SingleOrDefault(sc => sc.SchoolClassId == CurrentClassCourse.ClassId).Name;
-                    View.Titles.Push($"Kursmål till {courseName} för {className}");
                     ShowCurrentContent();
                     return;
                 }
@@ -305,12 +304,13 @@ namespace YH_Admin.View
                 else if (index == CurrentContents.Count + 1)
                 {
                     PreviousMenus.Push(ShowCurrentCourseContents);
-                    View.Titles.Push($"Lägg till en ny kursmål");
                     var currentMaxTextId = Model.CourseContentTexts.Max(c => c.Key);
                     CurrentContent = new CourseContent(currentMaxTextId + 1, currentMaxTextId + 2, currentMaxTextId + 3, 0, CurrentClassCourse.ClassCourseId);
                     Model.CourseContentTexts.Add(currentMaxTextId + 1, "");
                     Model.CourseContentTexts.Add(currentMaxTextId + 2, "");
                     Model.CourseContentTexts.Add(currentMaxTextId + 3, "");
+                    Model.CourseContents.Add(CurrentContent);
+                    CurrentContents = Model.GetCourseContents(CurrentClassCourse.ClassCourseId);
                     ShowCurrentContent();
                     return;
                 }
@@ -320,6 +320,10 @@ namespace YH_Admin.View
 
         private void ShowCurrentContent()
         {
+            string courseName = Model.GetCourseName(CurrentClassCourse.CourseId);
+            string className = Model.GetSchoolClassName(CurrentClassCourse.ClassId);
+            View.Titles.Push($"Kursmål till {courseName} för {className}");
+
             var table = new string[6, 2];
             table[0, 0] = "Kategori";
             table[0, 1] = "Innehåll";
@@ -330,11 +334,12 @@ namespace YH_Admin.View
             table[4, 0] = "G-kriterier:";
             table[5, 0] = "VG-kriterier:";
 
-            table[1, 1] = Model.Courses.SingleOrDefault(c => c.CourseId == CurrentClassCourse.CourseId).Name;
+            table[1, 1] = Model.GetCourseName(CurrentClassCourse.CourseId);
             table[2, 1] = CurrentContent.Point.ToString();
             table[3, 1] = Model.GetText(CurrentContent.ObjectivesId);
             table[4, 1] = Model.GetText(CurrentContent.GCriteriaId);
             table[5, 1] = Model.GetText(CurrentContent.VGCriteriaId);
+
             View.Message = "Tryck [d] för att ta bort detta mål från kursen\nAnnars [1-5] för att ändra.";
             View.ChoiceHandler = HandleShowCurrentContent;
             View.ShowTableAndWaitForChoice(table);
@@ -352,7 +357,22 @@ namespace YH_Admin.View
                     ShowMainMenu();
                     return;
                 case "1":
+                    PreviousMenus.Push(ShowCurrentContent);
                     View.Titles.Push($"Ändrar vilken kurs detta mål ska tillhöra");
+                    CurrentClassCourses = Model.ClassCourseTable;
+                    var table = new string[CurrentClassCourses.Count + 1, 3];
+                    table[0, 0] = "Namn";
+                    table[0, 1] = "Klass";
+                    table[0, 2] = "Lärare";
+                    for (int i = 0; i < CurrentClassCourses.Count; i++)
+                    {
+                        table[i + 1, 0] = Model.Courses.Find(c => c.CourseId == CurrentClassCourses[i].CourseId).Name;
+                        table[i + 1, 1] = Model.SchoolClasses.Find(c => c.SchoolClassId == CurrentClassCourses[i].ClassId).Name;
+                        table[i + 1, 2] = Model.Staffs.Find(c => c.StaffingId == CurrentClassCourses[i].StaffingId)?.Name ?? "";
+                    }
+                    View.Message = "";
+                    View.ChoiceHandler = HandleSetClassCourse;
+                    View.ShowTableAndWaitForChoice(table);
                     break;
                 case "2":
                     View.Titles.Push($"Ändrar antal poäng för detta mål");
@@ -364,11 +384,13 @@ namespace YH_Admin.View
                     break;
                 case "4":
                     View.Titles.Push($"Ändrar delmålets G-kriterier");
+
                     break;
                 case "5":
                     View.Titles.Push($"Ändrar delmålets VG-kriterier");
+
                     break;
-                case "6":
+                case "d":
                     View.Titles.Push($"Kursmål borttaget");
 
                     break;
@@ -376,6 +398,33 @@ namespace YH_Admin.View
                     ShowCurrentContent();
                     break;
             }
+        }
+
+        private void HandleSetClassCourse(string choice)
+        {
+            if (choice.Equals("x"))
+            {
+                GoBack();
+                return;
+            }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+            }
+            int index;
+            if (int.TryParse(choice, out index))
+            {
+                if (index > 0 && index <= CurrentClassCourses.Count)
+                {
+                    CurrentClassCourse = CurrentClassCourses[index - 1];
+                    CurrentContent.ClassCourseId = CurrentClassCourse.ClassCourseId;
+                    CurrentContents = Model.GetCourseContents(CurrentContent.ClassCourseId);
+                    GoBack();
+                    return;
+                }
+            }
+            HandleShowCurrentContent("1");
         }
 
         private void ShowStudentGrade()

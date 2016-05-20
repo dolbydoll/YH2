@@ -298,7 +298,7 @@ namespace YH_AdminTest
             expectedList.Add(new CourseContent(1, 2, 3, 4, 0));
             expectedList.Add(new CourseContent(66, 77, 88, 4, 0));
 
-            var actualList = sc.GetCourseContent(0);
+            var actualList = sc.GetCourseContents(0);
 
             CollectionAssert.AreEqual(expectedList, actualList);
         }
@@ -338,6 +338,52 @@ namespace YH_AdminTest
             sc.CourseContentTexts.Add(100, "dummy text");
             string expected = null;
             var actual = sc.GetText(101);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestGetCourseName()
+        {
+            School sc = GetTestSchool();
+            sc.Courses.Add(new Course(101, "test course name"));
+            string expected = "test course name";
+            string actual = sc.GetCourseName(101);
+
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        [TestMethod]
+        public void TestGetCourseName2()
+        {
+            School sc = GetTestSchool();
+            sc.Courses.Add(new Course(101, "test course name"));
+            string expected = null;
+            string actual = sc.GetCourseName(102);
+
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        [TestMethod]
+        public void TestGetSchoolClassName()
+        {
+            School sc = GetTestSchool();
+            sc.SchoolClasses.Add(new SchoolClass(101, "test class name", 102, DateTime.Today, DateTime.Today));
+            string expected = "test class name";
+            string actual = sc.GetSchoolClassName(101);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestGetSchoolClassName2()
+        {
+            School sc = GetTestSchool();
+            sc.SchoolClasses.Add(new SchoolClass(101, "test class name", 102, DateTime.Today, DateTime.Today));
+            string expected = null;
+            string actual = sc.GetSchoolClassName(102);
 
             Assert.AreEqual(expected, actual);
         }
