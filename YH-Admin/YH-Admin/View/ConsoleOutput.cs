@@ -162,15 +162,40 @@ namespace YH_Admin.View
                 Console.ForegroundColor = ConsoleColor.DarkGray;
         }
 
+        public void ShowBeforeAndEdit(string beforeStr)
+        {
+            Console.Clear();
+            ShowTitle();
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("Current text: " + beforeStr);
+            Console.WriteLine();
+            ShowFooter(false);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("\n" + "New Text: ");
+            Console.ResetColor();
+            var newStr = Console.ReadLine();
+            ChoiceHandler(newStr);
+        }
+
         public void ShowLogIn()
         {
             Console.Clear();
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(HandleCancel);
+            
             ShowTitle();
             Console.Write("Användarnamn: ");
             var username = Console.ReadLine();
             Console.Write("Lösenord: ");
             var password = Console.ReadLine();
             ChoiceHandler($"{username}\n{password}");
+        }
+
+        private void HandleCancel(object sender, ConsoleCancelEventArgs e)
+        {
+            Console.Clear();
+
+            Console.WriteLine("Nu stängs programmet");
+            Environment.Exit(0);
         }
 
         public void ShowAddStudent(string[] classList)

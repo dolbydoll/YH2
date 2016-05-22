@@ -261,6 +261,16 @@ namespace YH_Admin.Model
             return CourseContents.Where(cc => cc.ClassCourseId == classCourseId).ToList();
         }
 
+        public void SetText(int textId, string text)
+        {
+            CourseContentTexts[textId] = text;
+        }
+
+        public void RemoveCourseContent(int contentId)
+        {
+            CourseContents.RemoveAll(c => c.CourseContentId == contentId);
+        }
+
         /// <summary>
         /// Return the string from CourseContentTexts with a certain textId.
         /// Return null if the textId is not found.

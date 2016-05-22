@@ -38,6 +38,8 @@ namespace YH_Admin.View
 
         List<Staffing> CurrentStaffs { get; set; }
 
+        int CurrentTextId { get; set; }
+
         /// <summary>
         /// Constructor to set up Model and View.
         /// </summary>
@@ -292,7 +294,7 @@ namespace YH_Admin.View
             int index;
             if (int.TryParse(choice, out index))
             {
-               
+
                 if (index > 0 && index <= CurrentContents.Count)
                 {
                     PreviousMenus.Push(ShowCurrentCourseContents);
@@ -376,28 +378,77 @@ namespace YH_Admin.View
                     break;
                 case "2":
                     View.Titles.Push($"Ändrar antal poäng för detta mål");
-
+                    PreviousMenus.Push(ShowCurrentContent);
+                    View.Message = "";
+                    View.ChoiceHandler = HandleContentPoint;
+                    View.ShowBeforeAndEdit(CurrentContent.Point.ToString());
                     break;
                 case "3":
                     View.Titles.Push($"Ändrar delmåls beskrivning");
+                    PreviousMenus.Push(ShowCurrentContent);
+                    CurrentTextId = CurrentContent.ObjectivesId;
 
+                    View.ChoiceHandler = HandleContentText;
+                    View.ShowBeforeAndEdit(Model.GetText(CurrentTextId));
                     break;
                 case "4":
                     View.Titles.Push($"Ändrar delmålets G-kriterier");
-
+                    PreviousMenus.Push(ShowCurrentContent);
+                    CurrentTextId = CurrentContent.GCriteriaId;
+                    View.ChoiceHandler = HandleContentText;
+                    View.ShowBeforeAndEdit(Model.GetText(CurrentTextId));
                     break;
                 case "5":
                     View.Titles.Push($"Ändrar delmålets VG-kriterier");
-
+                    PreviousMenus.Push(ShowCurrentContent);
+                    CurrentTextId = CurrentContent.VGCriteriaId;
+                    View.ChoiceHandler = HandleContentText;
+                    View.ShowBeforeAndEdit(Model.GetText(CurrentTextId));
                     break;
                 case "d":
                     View.Titles.Push($"Kursmål borttaget");
-
+                    
                     break;
                 default:
                     ShowCurrentContent();
                     break;
             }
+        }
+
+        private void HandleContentText(string choice)
+        {
+            if (choice.Equals("x"))
+            {
+                GoBack();
+                return;
+            }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+            }
+            Model.SetText(CurrentTextId, choice);
+            GoBack();
+        }
+
+        private void HandleContentPoint(string choice)
+        {
+            if (choice.Equals("x"))
+            {
+                GoBack();
+                return;
+            }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+            }
+            int newPoint;
+            if (int.TryParse(choice, out newPoint))
+            {
+                CurrentContent.Point = newPoint;
+            }
+            GoBack();
         }
 
         private void HandleSetClassCourse(string choice)
