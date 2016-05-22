@@ -382,7 +382,6 @@ namespace YH_Admin.View
                     View.Titles.Push($"Ändrar delmåls beskrivning");
                     PreviousMenus.Push(ShowCurrentContent);
                     CurrentTextId = CurrentContent.ObjectivesId;
-
                     View.ChoiceHandler = HandleContentText;
                     View.ShowBeforeAndEdit(Model.GetText(CurrentTextId));
                     break;

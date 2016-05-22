@@ -267,10 +267,31 @@ namespace YH_Admin.Model
                 CourseContentTexts[textId] = text;
         }
 
+        /// <summary>
+        /// Add text (value) with textId as key.
+        /// </summary>
+        /// <param name="textId">Key</param>
+        /// <param name="text">Value</param>
         public void AddText(int textId, string text)
         {
             if (!CourseContentTexts.ContainsKey(textId))
                 CourseContentTexts.Add(textId, text);
+        }
+
+        /// <summary>
+        /// Add a string to the CourseContentTexts and return the index of that text.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public int AddText(string text)
+        {
+            int index = 0;
+            if (CourseContentTexts != null && CourseContentTexts.Count > 0)
+            {
+                index = CourseContentTexts.Max(c => c.Key) + 1;
+            }
+            AddText(index, text);
+            return index;
         }
 
         public void RemoveCourseContent(int contentId)
@@ -286,11 +307,11 @@ namespace YH_Admin.Model
         /// <returns></returns>
         public CourseContent AddNewCourseContent(int classCourseId)
         {
-            var currentMaxTextId = CourseContentTexts.Max(c => c.Key);
-            var content = new CourseContent(currentMaxTextId + 1, currentMaxTextId + 2, currentMaxTextId + 3, 0, classCourseId);
-            AddText(currentMaxTextId + 1, "");
-            AddText(currentMaxTextId + 2, "");
-            AddText(currentMaxTextId + 3, "");
+
+            var content = new CourseContent(AddText(""), AddText(""), AddText(""), 0, classCourseId);
+            //AddText(currentMaxTextId + 1, "");
+            //AddText(currentMaxTextId + 2, "");
+            //AddText(currentMaxTextId + 3, "");
             CourseContents.Add(content);
 
             return content;

@@ -159,7 +159,7 @@ namespace YH_AdminTest
             school.Grades.Add(new Grade(0, 0, "IG"));
             school.Grades.Add(new Grade(1, 1, "G"));
             school.Users.Add(new User(0, "Tina", "Tina1", "Tina", "Kraft"));
-            
+
 
             return school;
         }
@@ -200,12 +200,12 @@ namespace YH_AdminTest
             var expectedGrade = new Grade(101, 0, 0, "G");
 
             sc.Grades.Add(expectedGrade);
-            sc.Grades.Add(new Grade(101, 0, 1, "VG")); 
+            sc.Grades.Add(new Grade(101, 0, 1, "VG"));
 
 
             var actualGrade = sc.GetGrade(new Student(0, "Allan", "Allansson", 0), new ClassCourse(0, 0, 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30)));
 
-            Assert.AreEqual(expectedGrade, actualGrade );
+            Assert.AreEqual(expectedGrade, actualGrade);
         }
 
         /// <summary>
@@ -401,6 +401,19 @@ namespace YH_AdminTest
         }
 
         [TestMethod]
+        public void TestAddText2()
+        {
+            School sc = new School();
+            string first = "testint 1 2 3";
+            sc.AddText(101, first);
+            sc.AddText("second");
+            int actual = sc.AddText("third");
+            int expected = 103;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
         public void TestSetText()
         {
             School sc = new School();
@@ -412,10 +425,28 @@ namespace YH_AdminTest
         }
 
         [TestMethod]
-        public void TestRemoceCourseContent()
+        public void TestRemoveCourseContent()
         {
             School sc = new School();
-            sc.Add
+            sc.AddNewCourseContent(101);
+            sc.AddNewCourseContent(101);
+            sc.RemoveCourseContent(0);
+            int expectedCount = 1;
+            int actualCount = sc.CourseContents.Count;
+
+            Assert.AreEqual(expectedCount, actualCount);
+        }
+
+        [TestMethod]
+        public void TestAddCourseContent()
+        {
+            School sc = new School();
+            sc.AddNewCourseContent(101);
+            int expectedCount = 1;
+            int actualCount = sc.CourseContents.Count;
+
+            Assert.AreEqual(expectedCount, actualCount);
+
         }
     }
 }
