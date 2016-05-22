@@ -652,6 +652,150 @@ namespace YH_Admin.View
 
         }
 
+        private void ShowCurrentClasses()
+        {
+            var table = new string[CurrentClasses.Count + 1, 3];
+            table[0, 0] = "Namn";
+            table[0, 1] = "Startdatum";
+            table[0, 2] = "Status";
+
+            for (int i = 0; i < CurrentClasses.Count; i++)
+            {
+                table[i + 1, 0] = CurrentClasses[i].Name;
+                table[i + 1, 1] = CurrentClasses[i].StartDateString;
+                table[i + 1, 2] = CurrentClasses[i].Status;
+
+            }
+            View.ChoiceHandler = HandleShowCurrentClasses;
+            View.ShowTableAndWaitForChoice(table);
+        }
+
+        private void HandleShowCurrentClasses(string choice)
+        {
+            if (choice.Equals("x"))
+            {
+                GoBack();
+                return;
+            }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+            }
+            int index;
+            if (int.TryParse(choice, out index))
+            {
+                if (index > 0 && index <= CurrentClasses.Count)
+                {
+                    PreviousMenus.Push(ShowCurrentClasses);
+                    var chosen = CurrentClasses[index - 1];
+                    View.Titles.Push($"Kurser för {chosen.Name}");
+                    CurrentClassCourses = Model.GetClassCourses(chosen);
+                    ShowCurrentClassCoursesTeachers();
+                    return;
+                }
+            }
+            ShowCurrentClasses();
+        }
+
+        private void ShowCurrentClassCoursesTeachers()
+        {
+            var table = new string[CurrentClassCourses.Count + 1, 5];
+            table[0, 0] = "Namn";
+            table[0, 1] = "Startdatum";
+            table[0, 2] = "Slutdatum";
+            table[0, 3] = "Status";
+            table[0, 4] = "Lärare";
+
+            for (int i = 0; i < CurrentClassCourses.Count; i++)
+            {
+                table[i + 1, 0] = Model.Courses.Find(c => c.CourseId == CurrentClassCourses[i].CourseId).Name;
+                table[i + 1, 1] = CurrentClassCourses[i].StartDateString;
+                table[i + 1, 2] = CurrentClassCourses[i].EndDateString;
+                table[i + 1, 3] = CurrentClassCourses[i].Status;
+                table[i + 1, 4] = Model.Staffs.Find(c => c.StaffingId == CurrentClassCourses[i].StaffingId)?.Name ?? "";
+            }
+            View.Message = $"Tryck [1-{CurrentClassCourses.Count}] för att lägga till eller ändra lärare.";
+            View.ChoiceHandler = HandleShowCurrentClassCoursesTeachers;
+            View.ShowTableAndWaitForChoice(table);
+        }
+
+        private void HandleShowCurrentClassCoursesTeachers(string choice)
+        {
+            if (choice.Equals("x"))
+            {
+                GoBack();
+                return;
+            }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+
+            }
+            int index;
+            if (int.TryParse(choice, out index))
+            {
+                if (index > 0 && index <= CurrentClassCourses.Count)
+                {
+                    PreviousMenus.Push(ShowCurrentClassCoursesTeachers);
+                    CurrentClassCourse = CurrentClassCourses[index - 1];
+                    CurrentStaffs = Model.Staffs;
+                    ShowEditTeacher();
+                    return;
+                }
+            }
+            ShowCurrentClassCoursesTeachers();
+        }
+
+        private void ShowEditTeacher()
+        {
+            View.Titles.Push($"Ändra lärare i {Model.GetCourseName(CurrentClassCourse.CourseId)} från {Model.Staffs.Find(s => s.StaffingId == CurrentClassCourse.StaffingId)?.Name}");
+            var table = new string[CurrentStaffs.Count + 1, 2];
+            table[0, 0] = "Förnamn";
+            table[0, 1] = "Efternamn";
+            for (int i = 0; i < CurrentStaffs.Count; i++)
+            {
+                table[i + 1, 0] = CurrentStaffs[i].FirstName;
+                table[i + 1, 1] = CurrentStaffs[i].LastName;
+
+            }
+            View.Message = $"Välj [1-{CurrentStaffs.Count}] som lärare till kursen.\nEller [d] för att ta bort läraren från kursen.";
+            View.ChoiceHandler = HandleEditTeacher;
+            View.ShowTableAndWaitForChoice(table);
+        }
+
+        private void HandleEditTeacher(string choice)
+        {
+            if (choice.Equals("x"))
+            {
+                GoBack();
+                return;
+            }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+            }
+            if (choice.Equals("d"))
+            {
+                CurrentClassCourse.StaffingId = -1;
+                GoBack();
+                return;
+            }
+            int index;
+            if (int.TryParse(choice, out index))
+            {
+                if (index > 0 && index <= CurrentStaffs.Count)
+                {
+                    CurrentClassCourse.StaffingId = CurrentStaffs[index - 1].StaffingId;
+                    GoBack();
+                    return;
+                }
+            }
+            ShowEditTeacher();
+        }
+
         private void ShowClassMenu()
         {
             View.Titles.Push($"Visa klasser i en viss utbildning");
@@ -688,7 +832,7 @@ namespace YH_Admin.View
                     var chosen = CurrentEducations[index - 1];
                     View.Titles.Push($"Klasser i {chosen.Name}");
                     CurrentClasses = Model.GetClasses(chosen);
-                    ShowCurrentClasses();
+                    ShowCurrentClassesStudent();
                     return;
                 }
             }
@@ -834,7 +978,7 @@ namespace YH_Admin.View
             ShowStudentInClassMenu();
         }
 
-        private void ShowCurrentClasses()
+        private void ShowCurrentClassesStudent()
         {
             var table = new string[CurrentClasses.Count + 1, 3];
             table[0, 0] = "Namn";
@@ -848,11 +992,11 @@ namespace YH_Admin.View
                 table[i + 1, 2] = CurrentClasses[i].Status;
 
             }
-            View.ChoiceHandler = HandleShowCurrentClasses;
+            View.ChoiceHandler = HandleShowCurrentClassesStudents;
             View.ShowTableAndWaitForChoice(table);
         }
 
-        private void HandleShowCurrentClasses(string choice)
+        private void HandleShowCurrentClassesStudents(string choice)
         {
             if (choice.Equals("x"))
             {
@@ -869,7 +1013,7 @@ namespace YH_Admin.View
             {
                 if (index > 0 && index <= CurrentClasses.Count)
                 {
-                    PreviousMenus.Push(ShowCurrentClasses);
+                    PreviousMenus.Push(ShowCurrentClassesStudent);
                     var chosen = CurrentClasses[index - 1];
                     View.Titles.Push($"Studerande i {chosen.Name}");
                     CurrentStudents = Model.GetStudents(chosen);
@@ -877,7 +1021,7 @@ namespace YH_Admin.View
                     return;
                 }
             }
-            ShowCurrentClasses();
+            ShowCurrentClassesStudent();
         }
 
         private void ShowCurrentClassCoursesStudent()

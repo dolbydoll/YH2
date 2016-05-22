@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YH_Admin.Model;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace YH_Admin.View
@@ -255,6 +256,9 @@ namespace YH_Admin.View
                 ChoiceHandler("x");
         }
 
-
+        internal void ShowEditTeacher(int staffingId, List<Staffing> staffs)
+        {
+            
+        }
     }
 }

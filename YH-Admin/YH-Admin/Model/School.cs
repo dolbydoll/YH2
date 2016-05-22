@@ -231,8 +231,10 @@ namespace YH_Admin.Model
             List<ClassCourse> noTeacherCourses = new List<ClassCourse>();
             foreach (var cc in ClassCourseTable)
             {
-                if (cc.HasTeacher)
+                if (!cc.HasTeacher)
+                {
                     noTeacherCourses.Add(cc);
+                }
             }
             return noTeacherCourses;
         }

@@ -28,7 +28,7 @@ namespace YH_Admin.Model
 
         public int StaffingId { get; set; }
 
-        public bool HasTeacher { get { return StaffingId < 0; } }
+        public bool HasTeacher { get { return StaffingId >= 0; } }
 
        
         /// <summary>
