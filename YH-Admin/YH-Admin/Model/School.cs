@@ -86,6 +86,8 @@ namespace YH_Admin.Model
             SchoolDatabase.SaveStudentFile(GetStudents());
             SchoolDatabase.SaveGradeFile(Grades);
             SchoolDatabase.SaveTeacherFile(Staffs);
+            SchoolDatabase.SaveCourseContents(CourseContents);
+            SchoolDatabase.SaveCourseContentTexts(CourseContentTexts);
         }
 
         public Grade GetGrade(Student student, ClassCourse classCourse)
@@ -294,9 +296,9 @@ namespace YH_Admin.Model
             return index;
         }
 
-        public void RemoveCourseContent(int contentId)
+        public void RemoveCourseContent(int courseContentId)
         {
-            CourseContents.RemoveAll(c => c.CourseContentId == contentId);
+            CourseContents.RemoveAll(c => c.CourseContentId == courseContentId);
         }
 
         /// <summary>
@@ -307,13 +309,8 @@ namespace YH_Admin.Model
         /// <returns></returns>
         public CourseContent AddNewCourseContent(int classCourseId)
         {
-
             var content = new CourseContent(AddText(""), AddText(""), AddText(""), 0, classCourseId);
-            //AddText(currentMaxTextId + 1, "");
-            //AddText(currentMaxTextId + 2, "");
-            //AddText(currentMaxTextId + 3, "");
             CourseContents.Add(content);
-
             return content;
         }
 

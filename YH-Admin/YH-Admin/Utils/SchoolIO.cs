@@ -85,6 +85,20 @@ namespace YH_Admin.Utils
             File.WriteAllLines(path, lines);
         }
 
+        internal void SaveCourseContentTexts(Dictionary<int, string> courseContentTexts)
+        {
+            var path = Path.Combine(DirectoryPath, @"DataFiles\courseContentTexts.txt");
+            var lines = courseContentTexts.OrderBy(p => p.Key).Select(p => p.Key.ToString() + " " + p.Value.ToString()).ToArray();
+            File.WriteAllLines(path, lines);
+        }
+
+        internal void SaveCourseContents(List<CourseContent> courseContents)
+        {
+            var path = Path.Combine(DirectoryPath, @"DataFiles\CourseContent.txt");
+            var lines = courseContents.OrderBy(cc => cc.CourseContentId).Select(cc => cc.ToString()).ToArray();
+            File.WriteAllLines(path, lines);
+        }
+
         internal List<CourseContent> ReadCourseContentFile()
         {
             var path = Path.Combine(DirectoryPath, @"DataFiles\CourseContent.txt");
@@ -112,6 +126,7 @@ namespace YH_Admin.Utils
 
             return contents;
         }
+
 
         public List<User> ReadUserFile()
         {

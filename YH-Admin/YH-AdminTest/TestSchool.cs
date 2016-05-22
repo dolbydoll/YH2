@@ -428,9 +428,9 @@ namespace YH_AdminTest
         public void TestRemoveCourseContent()
         {
             School sc = new School();
+            var content = sc.AddNewCourseContent(101);
             sc.AddNewCourseContent(101);
-            sc.AddNewCourseContent(101);
-            sc.RemoveCourseContent(0);
+            sc.RemoveCourseContent(content.CourseContentId);
             int expectedCount = 1;
             int actualCount = sc.CourseContents.Count;
 

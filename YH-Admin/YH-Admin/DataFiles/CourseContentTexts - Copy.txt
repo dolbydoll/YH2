@@ -1,4 +1,4 @@
-0 Kunna redogöra för affärsekonomiska begrepp samt affärsplaneringens grunder
+﻿0 Kunna redogöra för affärsekonomiska begrepp samt affärsplaneringens grunder
 1 Kunna beskriva och på ett grundläggande vis analysera ett företags verksamhet, affärside, företagsform, organisation, ledarskap, styrning, processer, kvalitetssystem, och intressenter samt samspelet mellan olika funktioner i organisationen
 2 Kunna redogöra för och analysera grundläggande ekonomiska begrepp och nyckeltal
 3 Kunna utföra kalkyler och lönsamhetsberäkningar
@@ -31,9 +31,3 @@
 30 Den studerande kan med stor säkerhet kunna skala upp projekt
 31 Den studerande kan med stor säkerhet utföra erfarenhetsutvärdering samt utvärdering och förbättring
 32 Den studerande kan med stor säkerhet säkerställa kvalité och mörkertal
-33 Gör alla läxor
-34 Läxorna är godkända
-35 Gör läxor och skriv en rapport
-36 Klara av tentan
-37 klarar minst 5 av 10 frågor
-38 klarar 10 av 10 frågor
