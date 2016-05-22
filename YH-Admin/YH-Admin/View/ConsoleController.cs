@@ -306,12 +306,7 @@ namespace YH_Admin.View
                 else if (index == CurrentContents.Count + 1)
                 {
                     PreviousMenus.Push(ShowCurrentCourseContents);
-                    var currentMaxTextId = Model.CourseContentTexts.Max(c => c.Key);
-                    CurrentContent = new CourseContent(currentMaxTextId + 1, currentMaxTextId + 2, currentMaxTextId + 3, 0, CurrentClassCourse.ClassCourseId);
-                    Model.CourseContentTexts.Add(currentMaxTextId + 1, "");
-                    Model.CourseContentTexts.Add(currentMaxTextId + 2, "");
-                    Model.CourseContentTexts.Add(currentMaxTextId + 3, "");
-                    Model.CourseContents.Add(CurrentContent);
+                    CurrentContent = Model.AddNewCourseContent(CurrentClassCourse.ClassCourseId);
                     CurrentContents = Model.GetCourseContents(CurrentClassCourse.ClassCourseId);
                     ShowCurrentContent();
                     return;
@@ -407,7 +402,9 @@ namespace YH_Admin.View
                     break;
                 case "d":
                     View.Titles.Push($"Kursmål borttaget");
-                    
+                    Model.RemoveCourseContent(CurrentContent.CourseContentId);
+                    CurrentContents = Model.GetCourseContents(CurrentClassCourse.ClassCourseId);
+                    GoBack();
                     break;
                 default:
                     ShowCurrentContent();

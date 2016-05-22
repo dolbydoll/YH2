@@ -263,12 +263,37 @@ namespace YH_Admin.Model
 
         public void SetText(int textId, string text)
         {
-            CourseContentTexts[textId] = text;
+            if (CourseContentTexts.ContainsKey(textId))
+                CourseContentTexts[textId] = text;
+        }
+
+        public void AddText(int textId, string text)
+        {
+            if (!CourseContentTexts.ContainsKey(textId))
+                CourseContentTexts.Add(textId, text);
         }
 
         public void RemoveCourseContent(int contentId)
         {
             CourseContents.RemoveAll(c => c.CourseContentId == contentId);
+        }
+
+        /// <summary>
+        /// Add new course content and return it.
+        /// Internally it will add 3 text reference (empty string) and content point is 0.
+        /// </summary>
+        /// <param name="classCourseId"></param>
+        /// <returns></returns>
+        public CourseContent AddNewCourseContent(int classCourseId)
+        {
+            var currentMaxTextId = CourseContentTexts.Max(c => c.Key);
+            var content = new CourseContent(currentMaxTextId + 1, currentMaxTextId + 2, currentMaxTextId + 3, 0, classCourseId);
+            AddText(currentMaxTextId + 1, "");
+            AddText(currentMaxTextId + 2, "");
+            AddText(currentMaxTextId + 3, "");
+            CourseContents.Add(content);
+
+            return content;
         }
 
         /// <summary>

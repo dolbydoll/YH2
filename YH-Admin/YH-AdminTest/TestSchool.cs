@@ -387,5 +387,35 @@ namespace YH_AdminTest
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void TestAddText()
+        {
+            School sc = new School();
+            string expected = "testint 1 2 3";
+            sc.AddText(101, expected);
+
+            string actual = sc.GetText(101);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestSetText()
+        {
+            School sc = new School();
+            sc.AddText(102, "initial string");
+            sc.SetText(102, "altered string");
+            string expected = "altered string";
+            string actual = sc.GetText(102);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestRemoceCourseContent()
+        {
+            School sc = new School();
+            sc.Add
+        }
     }
 }
