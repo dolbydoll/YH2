@@ -102,11 +102,17 @@ namespace YH_Admin.Model
         /// Default string output.
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
+        public string AlternateOutput()
         {
             return ClassCourseId + " " + ClassId + " " + CourseId + "; " + GetStartDate() + "->" + GetEndDate();
 
         }
+
+        public override string ToString()
+        {
+            return $"{ClassCourseId} {ClassId} {CourseId} {GetStartDate()} {GetEndDate()} {StaffingId}";
+        }
+
 
         public string ShowCourseStatus()
         {

@@ -92,6 +92,13 @@ namespace YH_Admin.Utils
             File.WriteAllLines(path, lines);
         }
 
+        internal void SaveClassCourses(List<ClassCourse> classCourseTable)
+        {
+            var path = Path.Combine(DirectoryPath, @"DataFiles\class_courses.txt");
+            var lines = classCourseTable.OrderBy(cc => cc.ClassCourseId).Select(cc => cc.ToString()).ToArray();
+            File.WriteAllLines(path, lines);
+        }
+
         internal void SaveCourseContents(List<CourseContent> courseContents)
         {
             var path = Path.Combine(DirectoryPath, @"DataFiles\CourseContent.txt");

@@ -88,6 +88,7 @@ namespace YH_Admin.Model
             SchoolDatabase.SaveTeacherFile(Staffs);
             SchoolDatabase.SaveCourseContents(CourseContents);
             SchoolDatabase.SaveCourseContentTexts(CourseContentTexts);
+            SchoolDatabase.SaveClassCourses(ClassCourseTable);
         }
 
         public Grade GetGrade(Student student, ClassCourse classCourse)
